@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRef, defineComponent, reactive, onMounted } from "vue";
+import {defineComponent } from "vue";
 defineComponent({
     name: "Base",
 });
@@ -7,17 +7,18 @@ defineComponent({
 
 <template>
     <div class="main">
-        hello
         <slot></slot>
     </div>
 </template>
 
 <style scoped>
 .main {
+    display: flex;
     margin: 0 auto;
-    width: 90%;
-    height: 90%;
-    border-radius: 60%;
+    justify-content: center;
+    text-align: center;
+    border-radius: 15px;
     box-shadow: 0 0 8px #cdd0d6;
+    background-color: white;
 }
 </style>
