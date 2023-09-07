@@ -11,22 +11,27 @@ const question: Array<string> = [
      你让他分别对这两只股票进行分析后给你做出推荐。",
 ];
 
+const nowQuestion = ref(0);
 let keyAns = "";
 const quesNum = 7;
 let receivedQuestion = "";
 let receivedData = "";
 const controller = ref([]);
+const haveAns = ref(false);
 // const answer = ref([]);
 let answer: Map<string, string> = new Map();
-const addAnswers = (ans: string, receivedQuestion: string, id: number) => {
-    if (id == 0) {
-        setKeyAns(ans);
-    }
+const addAnswers = (ans: string, ques: string) => {
+    // if (id == 0) {
+    //     setKeyAns(ans);
+    // }
     receivedData = ans;
-    answer[receivedQuestion] = receivedData;
-    controller.value[id] = false;
-    controller.value[id + 1] = true;
-    console.log(answer);
+    receivedQuestion = ques;
+    haveAns.value = true;
+    console.log(haveAns.value);
+    // answer[receivedQuestion] = receivedData;
+    // controller.value[id] = false;
+    // controller.value[id + 1] = true;
+    // console.log(answer);
 };
 
 const setKeyAns = (ans: string) => {
@@ -40,23 +45,49 @@ const initShow = () => {
     }
 };
 
+const back = () => {
+    nowQuestion.value--;
+};
+
+const next = () => {
+    if (nowQuestion.value === 0) {
+        setKeyAns(receivedData);
+    }
+    answer[receivedQuestion] = receivedData;
+    controller.value[nowQuestion.value] = false;
+    controller.value[nowQuestion.value + 1] = true;
+    haveAns.value = false;
+    nowQuestion.value++;
+    console.log(nowQuestion.value);
+    console.log(answer);
+};
+
 initShow();
 </script>
 
 <template>
     <Base class="main">
         <question1 :addAns="addAnswers" :id="0" v-if="false" />
-        <question2 :addAns="addAnswers" :id="1" keyAns="Q" v-if="true" />
+        <question2 :addAns="addAnswers" :id="1" :keyAns="keyAns" v-if="false" />
+        <div>
+            <el-button type="primary" @click="back()" v-show="nowQuestion !== 0"
+                >BACK</el-button
+            >
+            <el-button type="primary" @click="next()" :disabled="!haveAns"
+                >NEXT</el-button
+            >
+        </div>
     </Base>
 </template>
 
 <style scoped>
 .main {
-    width: 800px;
-    height: 500px;
+    width: 90vh;
+    height: 50vh;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
+    align-items: center;
 }
 </style>
