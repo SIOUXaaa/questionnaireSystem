@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, toRef, defineComponent, reactive, onMounted, watch } from "vue";
-import typeit from "../typeIt.vue";
+import typeit from "../typeit.vue";
 import { CONSTANTS } from "../../utils/constants";
 import { delSpan, setStyle } from "../../utils/utils";
 
@@ -8,15 +8,19 @@ const props = defineProps({
     addAns: {
         type: Function,
     },
+    id: {
+        type: Number,
+    },
     keyAns: {
         type: String,
     },
 });
 
 const question =
-    "现在，你对你刚才选择的" +
-    setStyle(props.keyAns, "color:red;") +
+    "现在，你对你最初选择的" +
+    setStyle(props.keyAns, "color:red;font-weight:600;") +
     "在未来会上涨的信心有多大";
+
 const pureQuestion = delSpan(question);
 const result = ref("");
 const show = ref(false);

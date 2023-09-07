@@ -3,6 +3,7 @@ import { ref, toRef, defineComponent, reactive, onMounted } from "vue";
 import typeit from "../typeit.vue";
 import { CONSTANTS } from "../../utils/constants";
 import { delSpan, setStyle } from "../../utils/utils";
+
 const props = defineProps({
     addAns: {
         type: Function,
@@ -10,12 +11,12 @@ const props = defineProps({
 });
 
 const question =
-    "现在，你有一个" +
-    setStyle("AI投资顾问", "color:red;") +
-    "，他可以帮助你分析股票。" +
-    "</br>" +
-    setStyle("你并没有告诉他们你刚才认为会上涨的是哪只股票。", "color:red;") +
-    "</br>你让他分别对这两只股票进行分析后给你做出推荐。";
+    "经过专业的分析，在两只股票中,</br>" +
+    setStyle("投资顾问", "color:red;font-weight:600;") +
+    setStyle("向你推荐的股票是：", "font-weight:600;") +
+    setStyle("P股票", "color:red;font-size:20px;font-weight:600;") +
+    "</br>";
+
 const pureQuestion = delSpan(question);
 
 setTimeout(() => {

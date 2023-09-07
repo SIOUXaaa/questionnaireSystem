@@ -12,6 +12,7 @@ declare module 'vue' {
     ElCo: typeof import('element-plus/es')['ElCo']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElRadio: typeof import('element-plus/es')['ElRadio']
+    'ElRadio-': typeof import('element-plus/es')['ElRadio-']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSlider: typeof import('element-plus/es')['ElSlider']
@@ -19,8 +20,12 @@ declare module 'vue' {
     Question1: typeof import('./src/components/demo/question1.vue')['default']
     Question2: typeof import('./src/components/demo/question2.vue')['default']
     Question3: typeof import('./src/components/demo/question3.vue')['default']
+    Question4: typeof import('./src/components/demo/question4.vue')['default']
+    Question5: typeof import('./src/components/demo/question5.vue')['default']
+    Question6: typeof import('./src/components/demo/question6.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ShowData: typeof import('./src/components/demo/showData.vue')['default']
     TypeIt: typeof import('./src/components/typeIt.vue')['default']
   }
 }

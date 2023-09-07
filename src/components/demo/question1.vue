@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import typeit from "../typeIt.vue";
-import { DelSpan } from "../../utils/utils";
+import { CONSTANTS } from "../../utils/constants";
+import { delSpan } from "../../utils/utils";
 
 const props = defineProps({
     addAns: {
         type: Function,
     },
-    id: {
-        type: Number,
-    },
 });
 
 const question =
-    '<span style="">你是一个证券投资者，现在A股市场上有两只股票进入了你的候选项，你想从中选择一只股票进行投资。请从这两只股票中选择你认为会上涨的股票：</span>';
+    "你是一个证券投资者，现在A股市场上有两只股票进入了你的候选项，你想从中选择一只股票进行投资。请从这两只股票中选择你认为会上涨的股票";
 const data = ["P股票", "G股票"];
-const pureQuestion = DelSpan(question);
+const pureQuestion = delSpan(question);
 
 const result = ref("");
 
@@ -23,11 +21,10 @@ const show = ref(false);
 
 setTimeout(() => {
     show.value = true;
-}, (125 - 25) * pureQuestion.length);
+}, CONSTANTS.typeSpeed * pureQuestion.length);
 
 watch(result, () => {
     props.addAns(result.value, pureQuestion);
-    console.log(result.value);
 });
 </script>
 
