@@ -2,7 +2,7 @@
     <span ref="text" class="msg"></span>
 </template>
 
-<script setup>
+<script setup lang="ts">
 /**
  * 打字机效果
  * npm install typeit
@@ -26,7 +26,7 @@ onMounted(() => {
         cursor: true, //在字符串末尾显示闪烁的光标
         breakLines: false, // 控制是将多个字符串打印在彼此之上，还是删除这些字符串并相互替换
         loop: false, //是否循环
-        HTML: true,
+        html: true,
     }).go();
 });
 </script>

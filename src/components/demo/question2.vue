@@ -1,32 +1,59 @@
 <script setup lang="ts">
-import { ref, toRef, defineComponent, reactive, onMounted, watch } from "vue";
+import {
+    ref,
+    toRef,
+    defineComponent,
+    reactive,
+    onMounted,
+    watch,
+    inject,
+} from "vue";
 import typeit from "../typeIt.vue";
 import { CONSTANTS } from "../../utils/constants";
 import { delSpan, setStyle } from "../../utils/utils";
+import { UserStatus } from "../../utils/type";
 
 const props = defineProps({
     addAns: {
         type: Function,
     },
-    keyAns: {
-        type: String,
-    },
 });
 
+const baseNext: Function = inject("next");
+const userStatus: UserStatus = inject("userStatus");
+
+const key = "Q02";
+const colName = "02";
 const question =
     "现在，你对你刚才选择的" +
-    setStyle(props.keyAns, "color:red;") +
+    setStyle(userStatus.stockSelection, "color:red;") +
     "在未来会上涨的信心有多大";
 const pureQuestion = delSpan(question);
-const result = ref("");
+const delayTime = CONSTANTS.thinkingTime;
+
+const result = ref(0);
 const show = ref(false);
+const showDaley = ref(false);
+const haveAns = ref(false);
+
 setTimeout(() => {
     show.value = true;
+    showDaley.value = true;
 }, CONSTANTS.typeSpeed * pureQuestion.length);
 
-watch(result, () => {
-    props.addAns(result.value, pureQuestion);
-});
+const handleAns = () => {
+    console.log(result.value);
+    if (result.value >= 0) {
+        haveAns.value = true;
+    } else {
+        haveAns.value = false;
+    }
+};
+
+const next = () => {
+    props.addAns(key, colName, pureQuestion, result.value);
+    baseNext();
+};
 </script>
 
 <template>
@@ -38,9 +65,20 @@ watch(result, () => {
         </el-row>
         <el-row justify="center" v-show="show">
             <el-col :span="12">
-                <el-slider v-model="result" :step="10" show-stops />
+                <el-slider
+                    v-model="result"
+                    :step="10"
+                    :change="handleAns()"
+                    show-stops
+                />
             </el-col>
         </el-row>
+        <NextBtn
+            :delayTime="delayTime"
+            :haveAns="haveAns"
+            :next="next"
+            :showDaley="showDaley"
+        />
     </div>
 </template>
 
@@ -48,5 +86,9 @@ watch(result, () => {
 .ques {
     width: 80%;
     height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
 }
 </style>

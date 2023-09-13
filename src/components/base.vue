@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineComponent } from "vue";
+import { defineComponent } from "vue";
 defineComponent({
     name: "Base",
 });
@@ -13,6 +13,8 @@ defineComponent({
 
 <style scoped>
 .main {
+    min-width: fit-content;
+    min-height: fit-content;
     display: flex;
     margin: 0 auto;
     justify-content: center;
