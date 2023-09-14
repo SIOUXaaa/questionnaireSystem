@@ -1,5 +1,5 @@
 export type QuestionData = {
-    "level": string,
+    "colName": string,
     "content": string,
     "answer": string,
 }

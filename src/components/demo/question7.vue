@@ -45,7 +45,7 @@ const handleAns = () => {
 };
 
 const checkText = () => {
-    console.log(result.value.length);
+    // console.log(result.value.length);
     if (result.value.length < 30) {
         showMsg("请输入大于30个字", "warning");
         return false;
@@ -66,7 +66,7 @@ const next = () => {
     <div class="ques">
         <el-row justify="center" align="middle">
             <el-col :span="12" v-if="waitImg">
-                <typeit :text="question" ></typeit>
+                <typeit :text="question" />
             </el-col>
             <el-col :span="12">
                 <el-image class="img" :src="imgUrl" fit="contain" />
@@ -86,13 +86,13 @@ const next = () => {
                 />
             </el-col>
         </el-row>
-        <NextBtn
-            :delayTime="delayTime"
-            :haveAns="haveAns"
-            :next="next"
-            :showDaley="showDaley"
-        />
     </div>
+    <NextBtn
+        :delayTime="delayTime"
+        :haveAns="haveAns"
+        :next="next"
+        :showDaley="showDaley"
+    />
 </template>
 
 <style scoped>

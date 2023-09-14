@@ -8,6 +8,7 @@ import ShowData from "../components/demo/showData.vue";
 import { QuestionData, UserStatus } from "../utils/type";
 import { convert, generateID } from "../utils/utils";
 
+const userStatus = ref({});
 const nowQuestion = ref(0);
 const quesNum = 7;
 const controller = ref([]);
@@ -21,17 +22,19 @@ let answer: { key: string; value: string }[] = [];
 let jsonData = ref("");
 
 onBeforeMount(() => {
-    const userStatus: UserStatus = {
-        id: "P03" + generateID(),
+    userStatus.value = {
+        id: "P03-" + generateID(),
         level: "1",
         role: "human",
         stockSelection: "",
         shareInfo: "NO",
     };
+    // console.log(userStatus.value);
     provide("userStatus", userStatus);
 });
 
 const convertToJSON = () => {
+    json["user"] = JSON.stringify(userStatus.value);
     for (const pair of answer) {
         json[pair.key] = pair.value;
     }
@@ -40,10 +43,10 @@ const convertToJSON = () => {
 
 const addAnswers = (key: string, col: string, ques: string, ans: string) => {
     receivedData = ans;
-    let data: QuestionData = { level: col, content: ques, answer: ans };
+    let data: QuestionData = { colName: col, content: ques, answer: ans };
     const val = JSON.stringify(data);
-    console.log(data);
-    console.log(val);
+    // console.log(data);
+    // console.log(val);
     const record = answer.find((pair) => pair.key === key);
     if (record) {
         record.value = val;
@@ -61,11 +64,11 @@ const initShow = () => {
         controller.value.push(false);
     }
     controller.value[0] = true;
-    console.log(controller.value);
+    // console.log(controller.value);
 };
 
 const next = () => {
-    console.log("next", nowQuestion.value);
+    // console.log("next", nowQuestion.value);
     if (nowQuestion.value === 0) {
         setKeyAns(receivedData);
     }
@@ -81,8 +84,8 @@ const next = () => {
 
 const post = () => {
     isPost.value = true;
-    console.log(answer);
-    console.log(jsonData);
+    // console.log(answer);
+    // console.log(jsonData);
 };
 
 const showMsg = (

@@ -17,7 +17,7 @@ const baseNext: Function = inject("next");
 const userStatus: UserStatus = inject("userStatus");
 
 onMounted(() => {
-    console.log(userStatus);
+    // console.log(userStatus);
 });
 
 const key = "Q01";
@@ -39,7 +39,7 @@ setTimeout(() => {
 }, CONSTANTS.typeSpeed * pureQuestion.length);
 
 const handleAns = () => {
-    console.log(result.value);
+    // console.log(result.value);
     if (result.value.length > 0) {
         haveAns.value = true;
     } else {
@@ -58,7 +58,7 @@ const next = () => {
     <div class="ques">
         <el-row justify="center" align="middle">
             <el-col>
-                <typeit :text="question"></typeit>
+                <typeit :text="question" />
             </el-col>
         </el-row>
         <el-row v-show="show" justify="center" align="middle">

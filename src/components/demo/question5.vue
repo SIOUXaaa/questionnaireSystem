@@ -44,8 +44,8 @@ setTimeout(() => {
 }, CONSTANTS.typeSpeed * pureQuestion.length);
 
 const handleAns = () => {
-    console.log(result.value);
-    if (result.value > 0) {
+    // console.log(result.value);
+    if (result.value >= 0) {
         haveAns.value = true;
     } else {
         haveAns.value = false;
@@ -62,7 +62,7 @@ const next = () => {
     <div class="ques">
         <el-row>
             <el-col>
-                <typeit :text="question"></typeit>
+                <typeit :text="question" />
             </el-col>
         </el-row>
         <el-row justify="center" v-show="show">
@@ -75,13 +75,13 @@ const next = () => {
                 />
             </el-col>
         </el-row>
-        <NextBtn
-            :delayTime="delayTime"
-            :haveAns="haveAns"
-            :next="next"
-            :showDaley="showDaley"
-        />
     </div>
+    <NextBtn
+        :delayTime="delayTime"
+        :haveAns="haveAns"
+        :next="next"
+        :showDaley="showDaley"
+    />
 </template>
 
 <style scoped>

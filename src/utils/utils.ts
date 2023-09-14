@@ -20,7 +20,8 @@ function setStyle(str: string, style: string) {
 function generateID() {
     let date = new Date();
     let time = date.getTime();
-    let id = time.toString().substring(5);
+    let str = time.toString();
+    let id = str.substring(str.length - 5);
     return id;
 }
 

@@ -43,7 +43,7 @@ const showDaley = ref(false);
 const haveAns = ref(false);
 
 const handleAns = () => {
-    console.log(result1.value >= 0, result2.value.length > 0);
+    // console.log(result1.value >= 0, result2.value.length > 0);
     if (result1.value >= 0 && result2.value.length > 0) {
         haveAns.value = true;
     } else {
@@ -53,7 +53,7 @@ const handleAns = () => {
 
 setTimeout(() => {
     showDaley.value = true;
-}, delayTime);
+}, 3000);
 
 const next = () => {
     props.addAns(key1, colName1, question1, data1[result1.value / 25]);
