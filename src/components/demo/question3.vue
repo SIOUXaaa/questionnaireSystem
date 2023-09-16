@@ -55,7 +55,7 @@ const next = () => {
     <div class="ques">
         <el-row justify="center" align="middle">
             <el-col>
-                <typeit :text="question" />
+                <typeit :text="question" :speed="CONSTANTS.typeSpeed" />
             </el-col>
         </el-row>
     </div>

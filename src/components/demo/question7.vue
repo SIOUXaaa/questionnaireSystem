@@ -66,7 +66,7 @@ const next = () => {
     <div class="ques">
         <el-row justify="center" align="middle">
             <el-col :span="12" v-if="waitImg">
-                <typeit :text="question" />
+                <typeit :text="question" :speed="CONSTANTS.typeSpeed" />
             </el-col>
             <el-col :span="12">
                 <el-image class="img" :src="imgUrl" fit="contain" />

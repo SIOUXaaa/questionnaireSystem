@@ -11,6 +11,7 @@ const props = defineProps({
     addAns: {
         type: Function,
     },
+
 });
 
 const baseNext: Function = inject("next");
@@ -27,6 +28,7 @@ const question =
 const data = ["P股票", "G股票"];
 const pureQuestion = delSpan(question);
 const delayTime = CONSTANTS.thinkingTime;
+const typeSpeed = 100;
 
 const result = ref("");
 const show = ref(false);
@@ -58,7 +60,7 @@ const next = () => {
     <div class="ques">
         <el-row justify="center" align="middle">
             <el-col>
-                <typeit :text="question" />
+                <typeit :text="question" :speed="typeSpeed" />
             </el-col>
         </el-row>
         <el-row v-show="show" justify="center" align="middle">
