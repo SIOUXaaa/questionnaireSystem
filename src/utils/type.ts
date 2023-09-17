@@ -11,3 +11,9 @@ export type UserStatus = {
     stockSelection: string,
     shareInfo: string,
 }
+
+export type postData = {
+    question_id: string,
+    user_id: string,
+    answer: string,
+}

@@ -5,10 +5,12 @@ import { EpPropMergeType } from "element-plus/es/utils";
 import { onBeforeMount, onMounted, provide, ref, watch } from "vue";
 import Base from "../components/base.vue";
 import ShowData from "../components/demo/showData.vue";
-import { QuestionData, UserStatus } from "../utils/type";
+import { postData, QuestionData, UserStatus } from "../utils/type";
 import { convert, generateID } from "../utils/utils";
+import axios from "axios";
 
-const userStatus = ref({});
+const questionId = "demo";
+const userStatus = ref<UserStatus>();
 const nowQuestion = ref(0);
 const quesNum = 7;
 const controller = ref([]);
@@ -34,7 +36,7 @@ onBeforeMount(() => {
 });
 
 const convertToJSON = () => {
-    json["user"] = JSON.stringify(userStatus.value);
+    // json["user"] = JSON.stringify(userStatus.value);
     for (const pair of answer) {
         json[pair.key] = pair.value;
     }
@@ -72,40 +74,47 @@ const next = () => {
     if (nowQuestion.value === 0) {
         setKeyAns(receivedData);
     }
-    controller.value[nowQuestion.value] = false;
-    controller.value[nowQuestion.value + 1] = true;
     if (nowQuestion.value === quesNum - 1) {
         convertToJSON();
         post();
+        if (isPost.value) {
+            controller.value[nowQuestion.value] = false;
+            controller.value[nowQuestion.value + 1] = true;
+        }
         return;
     }
+    controller.value[nowQuestion.value] = false;
+    controller.value[nowQuestion.value + 1] = true;
     nowQuestion.value++;
 };
 
 const post = () => {
-    isPost.value = true;
+    let data: postData = {
+        question_id: "django-" + questionId,
+        user_id: userStatus.value.id,
+        answer: jsonData.value,
+    };
+    axios
+        .post("question/post/", data)
+        .then((response) => {
+            if (response.status === 200) {
+                ElMessage.success("提交成功")
+                isPost.value = true;
+            } else {
+                ElMessage.error("提交失败，请重试")
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            ElMessage.error("出现错误：" + error)
+        });
     // console.log(answer);
     // console.log(jsonData);
 };
 
-const showMsg = (
-    msg: string,
-    type: EpPropMergeType<
-        StringConstructor,
-        "success" | "warning" | "error" | "info",
-        unknown
-    >
-) => {
-    ElMessage({
-        message: msg,
-        type: type,
-        grouping: true,
-    });
-};
 
 provide("next", next);
 provide("enableNext", enableNext);
-provide("showMsg", showMsg);
 
 initShow();
 </script>

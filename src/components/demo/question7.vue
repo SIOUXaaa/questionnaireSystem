@@ -13,7 +13,6 @@ const props = defineProps({
 });
 
 const baseNext: Function = inject("next");
-const showMsg: Function = inject("showMsg");
 
 const key = "Q08";
 const colName = "08";
@@ -47,7 +46,7 @@ const handleAns = () => {
 const checkText = () => {
     // console.log(result.value.length);
     if (result.value.length < 30) {
-        showMsg("请输入大于30个字", "warning");
+        ElMessage.warning("请输入大于30个字");
         return false;
     }
     return true;
