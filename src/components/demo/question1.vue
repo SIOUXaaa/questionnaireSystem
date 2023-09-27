@@ -11,7 +11,6 @@ const props = defineProps({
     addAns: {
         type: Function,
     },
-
 });
 
 const baseNext: Function = inject("next");
@@ -51,7 +50,8 @@ const handleAns = () => {
 
 const next = () => {
     userStatus.stockSelection = result.value;
-    props.addAns(key, colName, pureQuestion, result.value);
+    props.addAns(colName, result.value);
+
     baseNext();
 };
 </script>

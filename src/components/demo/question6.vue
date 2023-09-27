@@ -56,8 +56,8 @@ setTimeout(() => {
 }, 3000);
 
 const next = () => {
-    props.addAns(key1, colName1, question1, data1[result1.value / 25]);
-    props.addAns(key2, colName2, question2, result2.value);
+    props.addAns(colName1, data1[result1.value / 25]);
+    props.addAns(colName2, result2.value);
     baseNext();
 };
 </script>

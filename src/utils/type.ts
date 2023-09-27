@@ -1,8 +1,9 @@
-export type QuestionData = {
-    "colName": string,
-    "content": string,
-    "answer": string,
-}
+// export type QuestionData = {
+//     "colName": string,
+//     "content": string,
+//     "answer": string,
+// }
+
 
 export type UserStatus = {
     id: string,
@@ -13,7 +14,7 @@ export type UserStatus = {
 }
 
 export type postData = {
-    question_id: string,
+    project: string,
     user_id: string,
-    answer: string,
-}
+    answer: JSON,
+}  

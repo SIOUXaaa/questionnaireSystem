@@ -46,7 +46,8 @@ const handleAns = () => {
 };
 
 const next = () => {
-    props.addAns(key, colName, pureQuestion, result.value);
+    props.addAns(colName, result.value);
+
     baseNext();
 };
 </script>

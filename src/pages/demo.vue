@@ -5,7 +5,7 @@ import { EpPropMergeType } from "element-plus/es/utils";
 import { onBeforeMount, onMounted, provide, ref, watch } from "vue";
 import Base from "../components/base.vue";
 import ShowData from "../components/demo/showData.vue";
-import { postData, QuestionData, UserStatus } from "../utils/type";
+import { postData, UserStatus } from "../utils/type";
 import { convert, generateID } from "../utils/utils";
 import axios from "axios";
 
@@ -43,18 +43,19 @@ const convertToJSON = () => {
     jsonData.value = convert(JSON.stringify(json));
 };
 
-const addAnswers = (key: string, col: string, ques: string, ans: string) => {
+const addAnswers = (col: string, ans: string) => {
     receivedData = ans;
-    let data: QuestionData = { colName: col, content: ques, answer: ans };
-    const val = JSON.stringify(data);
+    // let data: QuestionData = { colName: col, content: ques, answer: ans };
+    // const val = JSON.stringify(data);
     // console.log(data);
     // console.log(val);
-    const record = answer.find((pair) => pair.key === key);
+    const record = answer.find((pair) => pair.key === col);
     if (record) {
-        record.value = val;
+        record.value = ans;
     } else {
-        answer.push({ key: key, value: val });
+        answer.push({ key: col, value: ans });
     }
+
 };
 
 const setKeyAns = (ans: string) => {
@@ -77,10 +78,6 @@ const next = () => {
     if (nowQuestion.value === quesNum - 1) {
         convertToJSON();
         post();
-        if (isPost.value) {
-            controller.value[nowQuestion.value] = false;
-            controller.value[nowQuestion.value + 1] = true;
-        }
         return;
     }
     controller.value[nowQuestion.value] = false;
@@ -90,28 +87,29 @@ const next = () => {
 
 const post = () => {
     let data: postData = {
-        question_id: "django-" + questionId,
+        project: "django-" + questionId,
         user_id: userStatus.value.id,
-        answer: jsonData.value,
+        answer: JSON.parse(jsonData.value),
     };
     axios
-        .post("question/post/", data)
+        .post("surveyResponses/post/", data)
         .then((response) => {
-            if (response.status === 200) {
-                ElMessage.success("提交成功")
+            if (response.status === 201) {
+                ElMessage.success("提交成功");
                 isPost.value = true;
+                controller.value[nowQuestion.value] = false;
+                controller.value[nowQuestion.value + 1] = true;
             } else {
-                ElMessage.error("提交失败，请重试")
+                ElMessage.error("提交失败，请重试");
             }
         })
         .catch((error) => {
             console.log(error);
-            ElMessage.error("出现错误：" + error)
+            ElMessage.error("出现错误：" + error);
         });
     // console.log(answer);
     // console.log(jsonData);
 };
-
 
 provide("next", next);
 provide("enableNext", enableNext);

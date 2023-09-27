@@ -53,7 +53,8 @@ const handleAns = () => {
 };
 
 const next = () => {
-    props.addAns(key, colName, pureQuestion, result.value);
+    props.addAns(colName, result.value);
+
     baseNext();
 };
 </script>
@@ -62,7 +63,7 @@ const next = () => {
     <div class="ques">
         <el-row>
             <el-col>
-                <typeit :text="question"  :speed="CONSTANTS.typeSpeed"/>
+                <typeit :text="question" :speed="CONSTANTS.typeSpeed" />
             </el-col>
         </el-row>
         <el-row justify="center" v-show="show">

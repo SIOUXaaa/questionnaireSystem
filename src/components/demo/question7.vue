@@ -56,7 +56,7 @@ const next = () => {
     if (!checkText()) {
         return;
     }
-    props.addAns(key, colName, question, result.value);
+    props.addAns(colName, result.value);
     baseNext();
 };
 </script>
