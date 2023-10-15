@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref, toRef, defineComponent, reactive, onMounted, inject } from "vue";
-import typeit from "../typeIt.vue";
-import { CONSTANTS } from "../../utils/constants";
-import { delSpan, setStyle } from "../../utils/utils";
+import type { CSSProperties } from "vue";
 import NextBtn from "../nextBtn.vue";
-import { ElMessage } from "element-plus";
+import { CONSTANTS } from "../../utils/constants";
 
 const props = defineProps({
     addAns: {
@@ -14,26 +12,16 @@ const props = defineProps({
 
 const baseNext: Function = inject("next");
 
-const key = "Q08";
-const colName = "08";
-const question = "是否有建议？";
+const key = "Q07";
+const colName = "07";
+const question = "请选择你的股票投资经验";
+const data = ["0年", "1-3年", "3-5年", "5-10年", "10年以上"];
 const delayTime = CONSTANTS.thinkingTime;
-const imgUrl =
-    "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg";
+
 
 const result = ref("");
-const show = ref(false);
-const waitImg = ref(false);
 const showDaley = ref(false);
 const haveAns = ref(false);
-
-setTimeout(() => {
-    waitImg.value = true;
-    setTimeout(() => {
-        show.value = true;
-        showDaley.value = true;
-    }, CONSTANTS.typeSpeed * question.length);
-}, 3000);
 
 const handleAns = () => {
     if (result.value.length > 0) {
@@ -43,46 +31,27 @@ const handleAns = () => {
     }
 };
 
-const checkText = () => {
-    // console.log(result.value.length);
-    if (result.value.length < 30) {
-        ElMessage.warning("请输入大于30个字");
-        return false;
-    }
-    return true;
-};
+setTimeout(() => {
+    showDaley.value = true;
+}, 3000);
 
 const next = () => {
-    if (!checkText()) {
-        return;
-    }
     props.addAns(colName, result.value);
     baseNext();
 };
+
 </script>
 
 <template>
     <div class="ques">
-        <el-row justify="center" align="middle">
-            <el-col :span="12" v-if="waitImg">
-                <typeit :text="question" :speed="CONSTANTS.typeSpeed" />
-            </el-col>
-            <el-col :span="12">
-                <el-image class="img" :src="imgUrl" fit="contain" />
-            </el-col>
+        <el-row>
+            <el-col>{{ question }}</el-col>
         </el-row>
-        <el-row justify="center" v-show="show">
-            <el-col>
-                <el-input
-                    v-model="result"
-                    placeholder="请输入答案"
-                    type="textarea"
-                    :autosize="{ minRows: 3 }"
-                    :change="handleAns()"
-                    maxlength="250"
-                    clearable
-                    show-word-limit
-                />
+        <el-row justify="center">
+            <el-col :span="20">
+            <el-radio-group v-model="result" :change="handleAns()">
+                <el-radio v-for="item in data" :label="item" />
+            </el-radio-group>
             </el-col>
         </el-row>
     </div>
@@ -98,12 +67,8 @@ const next = () => {
 .ques {
     width: 80%;
     height: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
-
-.img {
-    width: 50%;
+.el-row {
+    margin-bottom: 20px;
 }
 </style>

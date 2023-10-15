@@ -12,7 +12,7 @@ import axios from "axios";
 const questionId = "demo";
 const userStatus = ref<UserStatus>();
 const nowQuestion = ref(0);
-const quesNum = 7;
+const quesNum = 8;
 const controller = ref([]);
 const enableNext = ref(false);
 const isPost = ref(false);
@@ -126,6 +126,7 @@ initShow();
         <question5 :addAns="addAnswers" v-if="controller[4]" />
         <question6 :addAns="addAnswers" v-if="controller[5]" />
         <question7 :addAns="addAnswers" v-if="controller[6]" />
+        <question8 :addAns="addAnswers" v-if="controller[7]" />
         <ShowData :data="jsonData" v-if="isPost" />
     </Base>
 </template>
@@ -133,7 +134,7 @@ initShow();
 <style scoped>
 .main {
     color: black;
-    width: 90vh;
+    width: 80vw;
     height: 50vh;
     margin: 0 auto;
     position: relative;

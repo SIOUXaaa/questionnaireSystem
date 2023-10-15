@@ -65,7 +65,7 @@ const next = () => {
             </el-col>
         </el-row>
         <el-row justify="center" v-show="show">
-            <el-col :span="12">
+            <el-col :span="20">
                 <el-slider
                     v-model="result"
                     :step="10"

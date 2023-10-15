@@ -22,7 +22,7 @@ const question =
     "经过专业的分析，在两只股票中,</br>" +
     setStyle("投资顾问", "color:red;font-weight:600;") +
     setStyle("向你推荐的股票是：", "font-weight:600;") +
-    setStyle("P股票", "color:red;font-size:20px;font-weight:600;") +
+    setStyle("P股票", "color:red;font-size:1.5rem;font-weight:600;") +
     "</br>";
 const pureQuestion = delSpan(question);
 const delayTime = CONSTANTS.thinkingTime;
